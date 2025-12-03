@@ -11,7 +11,7 @@ import { apiUrl } from "../../config/constants";
 
 // Define the base API
 const baseQuery = fetchBaseQuery({
-  baseUrl: `/api/v1`,
+  baseUrl: "https://megatools-8920.onrender.com/api/v1",
   credentials: "include" as const,
   prepareHeaders: (headers) => {
     // const accessToken = (getState() as RootState).auth.token;
