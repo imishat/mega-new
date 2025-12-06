@@ -20,7 +20,8 @@ const useMainHooks = () => {
   useEffect(() => {
     joinRoom("addUser");
     // Example event listener: 'online-user'
-    receive("updateInfo", (data: any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    receive("updateInfo", () => {
       playNotification(); // Play sound
     });
 

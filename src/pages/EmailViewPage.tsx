@@ -53,7 +53,7 @@ useEffect(() => {
       joinRoom(event);
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const handleUpdateInfo = async ({ data }: any) => {
+      const handleUpdateInfo = async () => {
     
         dispatch(util.invalidateTags(["information"]));
       };

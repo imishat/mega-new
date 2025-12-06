@@ -4,7 +4,7 @@
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { useLoginUserMutation } from "../redux/Features/auth/authApi"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch,  } from "../redux/hooks"
 import { setAuthData } from "../redux/Features/auth/authSlice"
 import toast from "react-hot-toast"
 
@@ -18,7 +18,7 @@ export default function LoginPage() {
   const [signInUser, { isLoading }] = useLoginUserMutation()
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
-  const { data }:any = useAppSelector((state) => state.auth);
+  // const { data }:any = useAppSelector((state) => state.auth);
 
 
   const {

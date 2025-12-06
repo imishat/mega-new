@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { useCreateUserMutation } from "../redux/Features/auth/authApi"
 import toast from "react-hot-toast"
-import { useAppDispatch, useAppSelector } from "../redux/hooks"
+import { useAppDispatch} from "../redux/hooks"
 import { setAuthData } from "../redux/Features/auth/authSlice"
 
 type RegisterFormData = {
@@ -32,7 +32,7 @@ export default function RegisterPage() {
     },
   })
 
-  const { user }: any = useAppSelector(state => state.auth)
+  // const { user }: any = useAppSelector(state => state.auth)
 
   const onSubmit = async (data: RegisterFormData) => {
     try {
