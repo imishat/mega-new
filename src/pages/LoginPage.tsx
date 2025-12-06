@@ -19,7 +19,7 @@ export default function LoginPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
   const { data }:any = useAppSelector((state) => state.auth);
-console.log(data?.data?.email)
+
 
   const {
     register,
@@ -41,7 +41,7 @@ console.log(data?.data?.email)
         if (response?.token) {
           localStorage.setItem("access_token", response.token)
           dispatch(setAuthData(response));
-          console.log(response)
+          
           toast.success("Login successfully!")
           navigate("/Home")
           // window.location.reload();

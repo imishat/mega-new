@@ -15,7 +15,7 @@ const ForgetPassword = () => {
         formState: { errors },
     } = useForm<ForgotPasswordInputs>();
     const onSubmit: SubmitHandler<ForgotPasswordInputs> = async (data) => {
-        console.log(data);
+       
         try {
             const response: any = await forgetPassword(data).unwrap();
             if (response?.success === true) {
@@ -28,9 +28,9 @@ const ForgetPassword = () => {
             } else {
                 toast.error('something was wrong')
             }
-            console.log(response)
+          
         } catch (error: any) {
-            console.log(error);
+            (error);
             toast.error( error?.message)
         }
     };

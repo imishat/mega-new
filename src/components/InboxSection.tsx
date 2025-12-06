@@ -5,7 +5,7 @@ import InboxList from "./InboxList"
 export default function InboxSection() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-console.log(currentPage,"conversation")
+
   const { data, isLoading } = useGetInformationQuery({
     ...(searchQuery && { searchTerm: searchQuery }),
     page: currentPage,
@@ -14,7 +14,7 @@ console.log(currentPage,"conversation")
 
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+    <div className="bg-white  rounded-lg shadow p-6">
       <div className="">
         {isLoading ? (
          <div className="flex justify-center items-center h-64">

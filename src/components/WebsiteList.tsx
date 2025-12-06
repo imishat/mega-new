@@ -73,7 +73,7 @@ export default function WebsiteList() {
   const buyWebsite = (website: any) => {
     setSelectedWebsite(website);
   };
-console.log(websites,)
+
   const closeModal = () => {
     setSelectedWebsite(null);
   };

@@ -20,7 +20,7 @@ export default function EmailViewPage({ id }: EmailViewPageProps){
   const { joinRoom, socket, receive } = useSocket();
   // const { id } = useParams();
   const { data } = useGetInformationByIdQuery(id);
-  console.log(data,"data")
+ 
 
 const [mergedMailingData, setMergedMailingData] = useState<any>({});
 // Keep fullData updated
@@ -35,7 +35,7 @@ useEffect(() => {
   }
 }, [data?.mailing]);
 
-  console.log(mergedMailingData,"fullData")
+ 
 
   const [showPopup, setShowPopup] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
@@ -52,8 +52,9 @@ useEffect(() => {
     if (id) {
       joinRoom(event);
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const handleUpdateInfo = async ({ data }: any) => {
-        console.log(data, "from id", id);
+    
         dispatch(util.invalidateTags(["information"]));
       };
 

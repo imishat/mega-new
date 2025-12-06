@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPage, onPageC
 
     return pages;
   };
-  console.log(generatePageNumbers(),currentPage,totalPage)
+
 
   // Handle page click
   const handlePageClick = (page: number) => {

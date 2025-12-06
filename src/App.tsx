@@ -44,7 +44,7 @@ function App() {
   // Layout with sidebar for authenticated routes
   const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-      <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 scrollbar-hide">
+      <div className="flex h-screen overflow-hidden   text-gray-900 dark:text-gray-100 scrollbar-hide">
          <div className="flex-shrink-0">
     <Sidebar />
   </div>

@@ -33,7 +33,7 @@ export default function RegisterPage() {
   })
 
   const { user }: any = useAppSelector(state => state.auth)
-console.log(user)
+
   const onSubmit = async (data: RegisterFormData) => {
     try {
       const response: any = await signupUser(data).unwrap()

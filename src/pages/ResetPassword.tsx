@@ -26,10 +26,10 @@ export default function ResetPassword() {
         formState: { errors },
     } = useForm<ResetPasswordInputs>();
 
-    console.log(token)
+    
 
     const onSubmit: SubmitHandler<ResetPasswordInputs> = async (data) => {
-        console.log("Password:", data.password);
+        
 
         try {
             const response: any = await resetPassword({

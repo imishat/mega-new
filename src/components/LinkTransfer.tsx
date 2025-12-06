@@ -15,7 +15,7 @@ type FormValues = {
 export default function LinkTransfer({ seter,id }: any) {
   // const { id } = useParams<{ id: string }>();
     const { data }: any = useAppSelector((state) => state.auth);
-  console.log(data.data.id,"user")
+
 const userId =data.data.id
   const { register, handleSubmit, reset, watch, setValue } = useForm<FormValues>({
     defaultValues: {
@@ -40,7 +40,7 @@ const userId =data.data.id
     ...data,
     ...(data.type === "link" && id && { userId }), // only include userId when type is 'link'
   };
-  console.log(data,data.type ,payload)
+
      sendToServer(data.type, id, payload);
 
     

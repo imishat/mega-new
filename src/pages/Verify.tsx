@@ -46,7 +46,7 @@ const Verify = () => {
                 activationToken: token, // Ensure 'token' is defined properly
             };
 
-            console.log("Sending data:", finalData); // Debugging step
+       // Debugging step
 
             const response: any = await verifyOTP(finalData).unwrap();
 

@@ -34,7 +34,7 @@ export default function User() {
     setCurrentPage(page);
   };
 
-    console.log(users)
+  
     const [showCreateForm, setShowCreateForm] = useState(false);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -61,7 +61,7 @@ export default function User() {
             toast.error(err?.message || "Failed to create user");
         }
     };
-    console.log(users,"uaer")
+   
 
     return (
         <div className="container mx-auto p-4">

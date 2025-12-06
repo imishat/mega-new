@@ -17,7 +17,7 @@ const UserWebsite = () => {
   const [uri, setUri] = useState("");
   const [loading, setLoading] = useState(true);
   const [editId, setEditId] = useState<number | null>(null);
-console.log(data.data)
+
   // Load from localStorage
   // useEffect(() => {
   //   const storedWebsites = localStorage.getItem("websites");
@@ -81,9 +81,9 @@ console.log(data.data)
       throw new Error(errorData?.error || "Failed to save website");
     }
 
-    const savedWebsite = await response.json();
+    // const savedWebsite = await response.json();
     
-console.log(savedWebsite)
+
     // Reset form
     setName("");
     setUri("");

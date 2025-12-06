@@ -26,7 +26,7 @@ const { data: websites, isLoading, refetch }: any = useGetWebsiteQuery(
     setEditingWebsite(website);
     setIsModalOpen(true);
   };
-
+console.log(websites,"websites")
   const handleDelete = async (websiteId: string) => {
     if (confirm("Are you sure you want to delete this website?")) {
       try {

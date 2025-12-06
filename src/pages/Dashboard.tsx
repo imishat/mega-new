@@ -1,5 +1,5 @@
 import MetricsSection from "../components/MetricsSection"
-import InboxSection from "../components/InboxSection"
+// import InboxSection from "../components/InboxSection"
 
 import  { useEffect, useState } from "react";
 
@@ -8,7 +8,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     // Show notice when Dashboard mounts
-    setShowNotice(true);
+    setShowNotice(false);
 
     // Hide after 20 seconds
     const timer = setTimeout(() => {
@@ -52,7 +52,7 @@ export default function Dashboard() {
 
       {/* Main Dashboard Content */}
       <MetricsSection />
-      <InboxSection />
+      {/* <InboxSection /> */}
     </div> );
 }
 
