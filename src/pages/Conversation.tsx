@@ -1,7 +1,7 @@
 import  { useState } from "react";
 
-import WebsitePage from "./WebsitePage";
 import UserWebsite from "./UserWebsite";
+import NewPage from '../components/NewPage';
 
 const Conversation = () => {
   const [activeTab, setActiveTab] = useState<"web" | "personal">("web");
@@ -34,7 +34,9 @@ const Conversation = () => {
 
       {/* Content */}
       <div className="  rounded-xl text-white text-center shadow">
-        {activeTab === "web" &&<WebsitePage /> }
+        {/* {activeTab === "web" &&<WebsitePage /> } */}
+
+        {activeTab === "web" &&<NewPage /> }
         {activeTab === "personal" && <UserWebsite/>}
       </div>
     </div>
