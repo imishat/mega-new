@@ -18,10 +18,12 @@ interface User {
 export default function User() {
     const user = useAppSelector((state:any)=>state.auth.data.data)
 
+
     
     const [currentPage,setCurrentPage] = useState(1)
     const [createUser] = useCreateAdminUserMutation();
     const { data: users = [], refetch }: any = useGetAllUserQuery({ page: currentPage });
+        console.log(users?.data?.result.id,"user")
     const [formData, setFormData] = useState({
         username: "",
         email: "",

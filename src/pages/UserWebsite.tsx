@@ -1,237 +1,195 @@
-import { useEffect, useState } from 'react';
-import CustomWebsitePackage from './CustomWebsitePackage';
-import { useAppSelector } from '../redux/hooks';
+import React, { useEffect, useState } from "react";
+import { useAppSelector } from "../redux/hooks";
 
-interface Website {
-  id: number;
+import { handleCopyClick } from "../utils/copyToClipboard";
+
+type Tool = {
   name: string;
-  url: string;
-}
+  label: string;
+  domain: string;
+};
 
-const UserWebsite = () => {
-   const [websites, setWebsites] = useState<Website[]>([]);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data }: any = useAppSelector((state) => state.auth);
-  const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState("");
-  const [uri, setUri] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [editId, setEditId] = useState<number | null>(null);
+const UserWebsite: React.FC = () => {
+   const user = useAppSelector((state:any)=>state.auth.data.data)
+   console.log(user.id,"id")
+  const [tools, setTools] = useState<Tool[]>([]);
+  const [search, setSearch] = useState("");
+  const [newTool, setNewTool] = useState<Tool>({
+    name: "",
+    label: "",
+    domain: "https://view-map-com.live/",
+  });
 
-  // Load from localStorage
-  // useEffect(() => {
-  //   const storedWebsites = localStorage.getItem("websites");
-  //   if (storedWebsites) {
-  //     setWebsites(JSON.parse(storedWebsites));
-  //   }
-  
-  // }, []);
-    useEffect(() => {
-    const fetchLinks = async () => {
-      try {
-        const res = await fetch(
-          `https://megatools.site/api/v1/personal/link-all?createdBy=${data.data.id}&subAdminId=${data.data.referals}`
-        );
-        const datas = await res.json();
-     
-         setWebsites(datas.data.data); // backend returns { success, data }
-      } catch (error) {
-        console.error("Error fetching personal links:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLinks();
+  useEffect(() => {
+    try {
+      const saved =
+        typeof window !== "undefined" ? localStorage.getItem("tools") : null;
+      if (saved) setTools(JSON.parse(saved));
+    } catch (err) {
+      console.warn("Failed to read saved tools:", err);
+    }
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-
-  // Save to localStorage
-  // useEffect(() => {
-  //   localStorage.setItem("websites", JSON.stringify(websites));
-  // }, [websites]);
-
-  const handleAddWebsite = () => {
-        // localStorage.setItem("websites", JSON.stringify(websites));
-    setName("");
-    setUri("");
-    setEditId(null);
-    setShowModal(true);
-  };
-
-  const handleSave = async () => {
-  if (name.trim() === "" || uri.trim() === "") {
-    alert("Please fill in both fields");
-    return;
-  }
-
-  try {
-    const response = await fetch("https://megatools.site/api/v1/personal/link", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${data?.data.token}`, // if using auth
-      },
-      body: JSON.stringify({ name, url: uri, createdBy: data?.data?.id,subAdminId:data?.data?.referals }),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData?.error || "Failed to save website");
+  const handleAddTool = () => {
+    if (!newTool.name.trim() || !newTool.label.trim()) {
+      alert("Name and URL are required.");
+      return;
     }
 
-    // const savedWebsite = await response.json();
-    
+    const updated = [
+      ...tools,
+      { ...newTool, label: newTool.domain + newTool.label.trim() },
+    ];
+    setTools(updated);
 
-    // Reset form
-    setName("");
-    setUri("");
-    setEditId(null);
-    setShowModal(false);
+    try {
+      localStorage.setItem("tools", JSON.stringify(updated));
+    } catch (err) {
+      console.warn("Failed to save tools:", err);
+    }
 
-  } catch (err) {
-    console.error("Error saving website:", err);
-    alert("Something went wrong while saving the website. Please try again.");
-  }
-};
-
-
- const handleDelete = (id: number) => {
-  const updated = websites.filter((w) => w.id !== id);
-  setWebsites(updated);
-  localStorage.setItem("websites", JSON.stringify(updated)); // <- save to localStorage
-};
-
-  const handleCopy = (url: string) => {
-    navigator.clipboard.writeText(url).then(() => {
-      alert("URL copied to clipboard!");
-    });
+    setNewTool({ name: "", label: "", domain: "https://view-map-com.live/" });
   };
 
+  const handleDeleteTool = (index: number) => {
+    const updated = tools.filter((_, i) => i !== index);
+    setTools(updated);
+    try {
+      localStorage.setItem("tools", JSON.stringify(updated));
+    } catch (err) {
+      console.warn("Failed to update tools:", err);
+    }
+  };
+
+  const filteredTools = tools.filter((tool) =>
+    tool.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-   <>
-   <div className="p-6 font-sans bg-gray-100 min-h-screen">
-      
-      <div className='flex justify-between' >
-        
-<h2 className="text-2xl font-semibold mb-4 ">Manage Websites</h2>
-        <button
-        onClick={handleAddWebsite}
-        className="mb-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded shadow "
-      >
-        Add Website
-      </button>
+    <div className="min-h-screen p-6 bg-gray-50 text-gray-900">
+      <h1 className="text-3xl text-center font-semibold text-blue-600 mb-6">
+        Personal Web Site
+      </h1>
+
+      {/* Search */}
+      <div className="flex justify-center mb-8">
+        <input
+          type="text"
+          placeholder="Search Tools..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-80 px-4 py-2 rounded-md border border-gray-300 bg-white outline-none"
+        />
       </div>
 
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50  text-black">
-          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-            <h3 className="text-xl font-semibold mb-4">
-              {editId !== null ? "Edit Website" : "Add New Website"}
-            </h3>
-            <div className="mb-3">
-              <label className="block mb-1 font-medium text-black">Name:</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-1 font-medium">URI:</label>
-              <input
-                type="text"
-                value={uri}
-                onChange={(e) => setUri(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </div>
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSave}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Create New Tool */}
+      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow border space-y-6 mb-8">
+        <h2 className="text-2xl font-semibold text-gray-800">Create New Link</h2>
 
-      {/* Table */}
-      <div className="overflow-x-auto rounded-lg shadow-lg">
-        <table className="min-w-full bg-white divide-y divide-gray-200 rounded-lg">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wide">
-                Name
-              </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wide">
-                URL
-              </th>
-              <th className="px-6 py-3 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {websites.length === 0 ? (
+        <div className="space-y-1">
+          <label className="text-gray-700 font-medium">Link</label>
+          <input
+            type="text"
+            placeholder="Link"
+            value={newTool.label}
+            onChange={(e) =>
+              setNewTool((s) => ({ ...s, label: e.target.value }))
+            }
+            className="w-full px-4 py-3 rounded border border-gray-300 bg-white"
+          />
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-gray-700 font-medium">Select Domain</label>
+          <select
+            className="w-full px-4 py-3 rounded border border-gray-300 bg-white"
+            value={newTool.domain}
+            onChange={(e) =>
+              setNewTool((s) => ({ ...s, domain: e.target.value }))
+            }
+          >
+            <option value="https://view-map-com.live/">https://view-map-com.live/</option>
+          
+          </select>
+        </div>
+
+        <div className="space-y-1">
+          <label className="text-gray-700 font-medium">Sitename</label>
+          <input
+            type="text"
+            placeholder="Map Google"
+            value={newTool.name}
+            onChange={(e) =>
+              setNewTool((s) => ({ ...s, name: e.target.value }))
+            }
+            className="w-full px-4 py-3 rounded border border-gray-300 bg-white"
+          />
+        </div>
+
+        <div>
+          <button
+            onClick={handleAddTool}
+            className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded shadow"
+          >
+            Generate Link
+          </button>
+        </div>
+      </div>
+
+      {/* Table of Tools */}
+      {filteredTools.length === 0 ? (
+        <div className="text-center text-gray-500 py-8">
+          No links yet — add one above.
+        </div>
+      ) : (
+        <div className="max-w-6xl mx-auto overflow-x-auto">
+          <table className="min-w-full bg-white rounded-xl shadow border">
+            <thead className="bg-gray-100">
               <tr>
-                <td colSpan={3} className="px-6 py-4 text-center text-gray-500">
-                  No websites added.
-                </td>
+                <th className="py-3 px-6 text-left text-gray-700 font-semibold">
+                  Sitename
+                </th>
+                <th className="py-3 px-6 text-left text-gray-700 font-semibold">
+                  Link
+                </th>
+                <th className="py-3 px-6 text-left text-gray-700 font-semibold">
+                  Path
+                </th>
+                <th className="py-3 px-6 text-left text-gray-700 font-semibold">
+                  Action
+                </th>
               </tr>
-            ) : (
-              websites.map((website) => (
-                <tr key={website.id}>
-                  <td className="px-6 py-4 text-blue-600">{website.name}</td>
-                  <td className="px-6 py-4 flex items-center space-x-2">
-                    <a
-                      href={website.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline break-words"
-                    >
-                      {website.url}
-                    </a>
-                    
-                  </td>
-                  <td className="px-6 py-4 text-center">
+            </thead>
+            <tbody>
+              {filteredTools.map((tool, i) => (
+                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                  <td className="py-3 px-6 text-gray-900 font-medium">{tool.name}</td>
+                  <td className="py-3 px-6 text-gray-700 break-words">{tool.label}</td>
+                  {/* <td className="py-3 px-6 text-blue-600 underline break-words">
+                    {tool.label.replace(tool.domain, "")}
+                  </td> */}
+                  <td className="py-3 px-6 space-x-2">
                     <button
-                      onClick={() => handleCopy(website.url)}
-                      className="px-2 py-1 bg-teal-500 hover:bg-teal-600 text-white text-sm rounded"
-                    >
-                      Copy
-                    </button>
-                  </td>
-                  
-                  <td className="px-3 py-2 text-center">
+                                          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition"
+                                          onClick={() => handleCopyClick(`${tool.label}${user.id}`)}
+                                        >
+                                          Copy
+                                        </button>
                     <button
-                      onClick={() => handleDelete(website.id)}
-                      className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded"
+                      onClick={() => handleDeleteTool(i)}
+                      className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
                     >
                       Delete
                     </button>
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-        <CustomWebsitePackage/>
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
-   
-    </>)
+  );
 };
 
 export default UserWebsite;
