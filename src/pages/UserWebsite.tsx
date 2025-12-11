@@ -171,7 +171,7 @@ const UserWebsite: React.FC = () => {
                   <td className="py-3 px-6 space-x-2">
                     <button
                                           className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition"
-                                          onClick={() => handleCopyClick(`${tool.label}${user.id}`)}
+                                          onClick={() => handleCopyClick(`${tool.label}/${user.id}`)}
                                         >
                                           Copy
                                         </button>
