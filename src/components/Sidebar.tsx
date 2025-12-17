@@ -6,7 +6,7 @@ import { setAuthData } from "../redux/Features/auth/authSlice"
 import toast from "react-hot-toast"
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ChevronDown, Link2, LogOut, LogIn } from "lucide-react";
-import { HomeIcon, ToolIcon, UserIcon } from "./Icons"
+import { HomeIcon, ToolIcon, } from "./Icons"
 
 interface MenuItem {
   title: string;
@@ -43,11 +43,11 @@ export default function Sidebar() {
       path: "/Conversation",
       icon: <HomeIcon className="h-5 w-5 text-black" />,
     },
-    {
-      title: "Create Users",
-      path: "/users",
-      icon: <UserIcon className="h-5 w-5 text-black" />,
-    },
+    // {
+    //   title: "Create Users",
+    //   path: "/users",
+    //   icon: <UserIcon className="h-5 w-5 text-black" />,
+    // },
   ];
 
   const adminMenuItems = data?.data?.role === 'admin' ? [
@@ -56,10 +56,10 @@ export default function Sidebar() {
       path: "/manage-website",
       icon: <ToolIcon className="h-5 w-5 text-black" />,
       children: [
-        {
-          title: "Manage Website",
-          path: "/manage-website",
-        },
+        // {
+        //   title: "Manage Website",
+        //   path: "/manage-website",
+        // },
       ]
     }
   ] : [];

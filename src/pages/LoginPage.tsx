@@ -143,14 +143,14 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="text-center mt-6 w-full">
+        {/* <div className="text-center mt-6 w-full">
           <p className="w-full cursor-pointer bg-blue-900 text-white hover:bg-gray-700 font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ">
             {" "}
             <Link to="/sign-up" className="">
              Free Sign up
             </Link>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   )

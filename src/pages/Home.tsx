@@ -319,7 +319,7 @@ useEffect(() => {
               <FaSignInAlt className="transition-transform duration-300 group-hover:translate-x-1" />
               <span>Login</span>
             </Link>
-            <Link to='/sign-up' 
+            {/* <Link to='/sign-up' 
             
               className="flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all duration-300 
                         bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700
@@ -327,7 +327,7 @@ useEffect(() => {
             >
               <FaUserPlus className="transition-transform duration-300 group-hover:translate-x-1" />
               <span>Sing Up</span>
-            </Link>
+            </Link> */}
           </div>
         </header>
 

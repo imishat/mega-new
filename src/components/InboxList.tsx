@@ -220,13 +220,7 @@ const handelBack =(emailId: string,value: string)=>{
                         Back
                       </button>
 
-                      <button className="bg-green-500 text-white text-xs py-2 rounded-md shadow hover:bg-green-600 text-center">
-                        Done
-                      </button>
-
-                      <button className="bg-red-500 text-white text-xs py-2 rounded-md shadow hover:bg-red-600 text-center">
-                        Delete
-                      </button>
+                      
 
                     </div>
                   </td>
