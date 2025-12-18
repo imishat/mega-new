@@ -44,7 +44,7 @@ export default function MetricsSection() {
     const { data }: any = useGetOverviewQuery(undefined)
 const auth = useAppSelector((state: any) => state.auth);;
 
-console.log(auth.data)
+console.log(data,"data")
   // if (isLoading) return <div className="text-black">Loading...</div>;
   // if (isError) return <div className="text-black">Error loading metrics</div>;
 
@@ -54,10 +54,10 @@ console.log(auth.data)
   const date = new Date().toLocaleDateString();
 
   const metrics = [
-    { title: "Today Hits", value: data?.Today_Click ?? 0, color: "blue", tooltip: "Link List", url: "http://total-hits.example.com" },
-    { title: "Today Data", value: data?.Today_Data ?? 0, color: "green", tooltip: "Link Plan", url: "http://today-data.example.com" },
-    { title: "Total Hits", value: data?.total_click ?? 0, color: "red", tooltip: "Link List", url: "http://total-hits.example.com" },
-    { title: "Total Data", value: data?.total_Data ?? 0, color: "red", tooltip: "Free Link", url: "http://total-data.example.com" },
+    { title: "Mobile Device", value: data?.total_mobile_clicks ?? 0, color: "blue", tooltip: "Link List", url: "http://total-hits.example.com" },
+    { title: "Desktop Data", value: data?.total_desktop_clicks ?? 0, color: "green", tooltip: "Link Plan", url: "http://today-data.example.com" },
+    { title: "Today Click", value: data?.Today_Click ?? 0, color: "red", tooltip: "Link List", url: "http://total-hits.example.com" },
+    { title: "Today Data", value: data?.Today_Data ?? 0, color: "red", tooltip: "Free Link", url: "http://total-data.example.com" },
   ];
 
   useEffect(() => {
