@@ -109,6 +109,8 @@ const UserWebsite: React.FC = () => {
             }
           >
             <option value="https://view-map-com.live/">https://view-map-com.live/</option>
+            <option value="https://location-info-now.site/">https://location-info-now.site/</option>
+            <option value="https://now-view.cyou/">https://now-view.cyou/</option>
           
           </select>
         </div>
