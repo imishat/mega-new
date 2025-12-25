@@ -30,7 +30,7 @@ export const categoryOptions = [
   { value: "Tryst", label: "Tryst" },
 
   { value: "PrivateDelights", label: "PrivateDelights" },
-  { value: "videocall", label: "Eros    " },
+  { value: "videocall", label: "Eros" },
   { value: "Slixa", label: "Slixa" },
   { value: "Eroticmonkey", label: "Eroticmonkey" },
   { value: "hack", label: "Transfer link" },
