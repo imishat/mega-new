@@ -19,7 +19,7 @@ interface User {
 export default function User() {
     const user = useAppSelector((state:any)=>state.auth.data.data)
 
-const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+const [deleteUser, ] = useDeleteUserMutation();
     
     const [currentPage,setCurrentPage] = useState(1)
     const [createUser] = useCreateAdminUserMutation();
