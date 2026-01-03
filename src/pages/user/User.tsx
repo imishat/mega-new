@@ -83,7 +83,7 @@ const [deleteUser, ] = useDeleteUserMutation();
 
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-semibold">User List</h2>
-          {!user?.referals && (
+          {user?.referals && (
   <button
     onClick={() => setShowCreateForm(!showCreateForm)}
     className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
