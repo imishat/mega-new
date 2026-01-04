@@ -29,7 +29,7 @@ const useNotificationSound = () => {
 
         if (data.email) {
           playingTune(hitSound);
-        } else if (role === "user" && !data.email) {
+        } else if (!data.email) {
           playingTune(clickSound);
         }
       };
